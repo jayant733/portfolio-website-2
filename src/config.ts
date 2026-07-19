@@ -16,6 +16,18 @@ export const config = {
     },
     experiences: [
         {
+            position: "Open Source Contributor",
+            company: "SearxNG (33.4k ⭐, 3.3k forks)",
+            period: "2026",
+            location: "Remote",
+            description: "Active contributor to SearxNG, a privacy-respecting, hackable metasearch engine. Collaborated with the global open-source community to build features and improve the codebase.",
+            responsibilities: [
+                "Contributing to a major open-source repository with over 33.4k stars and 3.3k forks",
+                "Fixing bugs and implementing new features for the metasearch engine"
+            ],
+            technologies: ["Python", "Open Source", "Git", "Search Engine"]
+        },
+        {
             position: "Full Stack Developer Intern",
             company: "Marvedge",
             period: "2026",
