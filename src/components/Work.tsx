@@ -10,53 +10,55 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Work = () => {
   useEffect(() => {
-    // Disable pinning on mobile to allow scrolling
-    if (window.innerWidth <= 768) return;
+    let mm = gsap.matchMedia();
 
-    let translateX: number = 0;
+    mm.add("(min-width: 769px)", () => {
+      let translateX: number = 0;
 
-    function setTranslateX() {
-      const box = document.getElementsByClassName("work-box");
-      if (box.length === 0) return;
-      const rectLeft = document
-        .querySelector(".work-container")!
-        .getBoundingClientRect().left;
-      const rect = box[0].getBoundingClientRect();
-      const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
-      let padding: number =
-        parseInt(window.getComputedStyle(box[0]).padding) / 2;
-      translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
-    }
+      function setTranslateX() {
+        const box = document.getElementsByClassName("work-box");
+        if (box.length === 0) return;
+        const rectLeft = document
+          .querySelector(".work-container")!
+          .getBoundingClientRect().left;
+        const rect = box[0].getBoundingClientRect();
+        const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
+        let padding: number =
+          parseInt(window.getComputedStyle(box[0]).padding) / 2;
+        translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
+      }
 
-    setTranslateX();
+      setTranslateX();
 
-    let timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".work-section",
-        start: "top top",
-        end: `+=${translateX}`,
-        scrub: 1,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        id: "work",
-        invalidateOnRefresh: true,
-      },
+      let timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".work-section",
+          start: "top top",
+          end: `+=${translateX}`,
+          scrub: 1,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          id: "work",
+          invalidateOnRefresh: true,
+        },
+      });
+
+      timeline.to(".work-flex", {
+        x: -translateX,
+        ease: "none",
+      });
+
+      // Refresh ScrollTrigger after layout settles
+      ScrollTrigger.refresh();
+
+      return () => {
+        timeline.kill();
+        ScrollTrigger.getById("work")?.kill();
+      };
     });
 
-    timeline.to(".work-flex", {
-      x: -translateX,
-      ease: "none",
-    });
-
-    // Refresh ScrollTrigger after layout settles
-    ScrollTrigger.refresh();
-
-    // Clean up
-    return () => {
-      timeline.kill();
-      ScrollTrigger.getById("work")?.kill();
-    };
+    return () => mm.revert();
   }, []);
   return (
     <div className="work-section" id="work">
