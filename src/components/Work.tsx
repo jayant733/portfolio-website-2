@@ -70,14 +70,24 @@ const Work = () => {
           {config.projects.slice(0, 5).map((project, index) => (
             <div className="work-box" key={project.id}>
               <div className="work-info">
-                <div className="work-title">
-                  <h3>0{index + 1}</h3>
-
-                  <div>
-                    <h4>{project.title}</h4>
-                    <p>{project.category}</p>
+                {/* @ts-ignore */}
+                {project.url ? (
+                  <a href={(project as any).url} target="_blank" rel="noopener noreferrer" className="work-title project-title-link" data-cursor="disable">
+                    <h3>0{index + 1}</h3>
+                    <div>
+                      <h4>{project.title}</h4>
+                      <p>{project.category}</p>
+                    </div>
+                  </a>
+                ) : (
+                  <div className="work-title">
+                    <h3>0{index + 1}</h3>
+                    <div>
+                      <h4>{project.title}</h4>
+                      <p>{project.category}</p>
+                    </div>
                   </div>
-                </div>
+                )}
                 <h4>Tools and features</h4>
                 <p>{project.technologies}</p>
               </div>

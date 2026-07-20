@@ -80,12 +80,25 @@
   line-height: 50px;
   margin: 0;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .work-info h4 {
   font-size: 26px;
   font-weight: 500;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+.project-title-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.project-title-link:hover h3,
+.project-title-link:hover h4 {
+  color: var(--accentColor) !important;
 }
 
 .work-info p {

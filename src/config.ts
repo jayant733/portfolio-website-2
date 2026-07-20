@@ -71,7 +71,8 @@ export const config = {
             category: "Full Stack / AI",
             technologies: "Node.js, Express.js, Next.js, MongoDB, FFmpeg, REST APIs",
             image: "/images/marvedge.png",
-            description: "Built an AI-powered platform for generating interactive product demo videos. Features a scalable Node.js/Express backend, Next.js frontend, secure authentication, and FFmpeg integration to automate video generation."
+            description: "Built an AI-powered platform for generating interactive product demo videos. Features a scalable Node.js/Express backend, Next.js frontend, secure authentication, and FFmpeg integration to automate video generation.",
+            url: "https://marvedge.vercel.app/"
         },
         {
             id: 2,
@@ -79,7 +80,8 @@ export const config = {
             category: "Full Stack / AI",
             technologies: "Next.js, FastAPI, PostgreSQL, ChromaDB, OpenAI API, Docker",
             image: "/images/resume-ai.png",
-            description: "Built an AI-powered resume assistant using RAG to provide resume analysis and job-specific recommendations. Developed REST APIs with FastAPI and PostgreSQL for authentication, token usage tracking, and document management, with ChromaDB semantic search and a responsive Next.js multi-step interface."
+            description: "Built an AI-powered resume assistant using RAG to provide resume analysis and job-specific recommendations. Developed REST APIs with FastAPI and PostgreSQL for authentication, token usage tracking, and document management, with ChromaDB semantic search and a responsive Next.js multi-step interface.",
+            url: "https://ai-resume-studio-tau.vercel.app/"
         },
         {
             id: 3,
@@ -87,7 +89,8 @@ export const config = {
             category: "Full Stack / AI / Web3",
             technologies: "React, TypeScript, Bun, PostgreSQL, Drizzle ORM, Gemini GenAI, Solana RPC",
             image: "/images/predictx.png",
-            description: "Built an AI-powered prediction market platform using Gemini GenAI to analyze news and suggest market opportunities. Developed a pre-trade validation layer and double-entry bookkeeping service to enforce risk limits, integrated live market data from Polymarket Gamma API, implemented real-time portfolio updates via Bun WebSockets, and designed a robust PostgreSQL database with Drizzle ORM."
+            description: "Built an AI-powered prediction market platform using Gemini GenAI to analyze news and suggest market opportunities. Developed a pre-trade validation layer and double-entry bookkeeping service to enforce risk limits, integrated live market data from Polymarket Gamma API, implemented real-time portfolio updates via Bun WebSockets, and designed a robust PostgreSQL database with Drizzle ORM.",
+            url: "https://github.com/jayant733/PredictX-"
         }
     ],
     contact: {
