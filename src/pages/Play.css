@@ -824,4 +824,5 @@ body:has(.play-page) {
     overflow-y: auto;
     flex: 1 1 auto;
   }
-}
+}. m e s s a g e - c o n t e n t   p   {   m a r g i n :   0   0   8 p x   0 ;   }   . m e s s a g e - c o n t e n t   p : l a s t - c h i l d   {   m a r g i n - b o t t o m :   0 ;   }   . m e s s a g e - c o n t e n t   u l ,   . m e s s a g e - c o n t e n t   o l   {   m a r g i n - t o p :   4 p x ;   p a d d i n g - l e f t :   2 0 p x ;   }   . m e s s a g e - c o n t e n t   l i   {   m a r g i n - b o t t o m :   4 p x ;   }  
+ 

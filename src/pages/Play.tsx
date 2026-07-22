@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Chess, Square, PieceSymbol, Color } from "chess.js";
 import RedoxChessEngine from "../utils/redoxchessEngine";
+import ReactMarkdown from 'react-markdown';
 import "./Play.css";
 
 // Piece SVG components matching chess.com style with custom colors
@@ -355,7 +356,9 @@ const Play = () => {
           <div className="chat-messages">
             {chatMessages.map((msg, index) => (
               <div key={index} className={`chat-message ${msg.role}`}>
-                <div className="message-content">{msg.content}</div>
+                <div className="message-content">
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                </div>
               </div>
             ))}
             {!isTyping && chatMessages[chatMessages.length - 1]?.role === 'assistant' && availableStarterQuestions.length > 0 && (
