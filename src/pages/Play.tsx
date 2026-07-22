@@ -37,30 +37,48 @@ interface ChatMessage {
 
 // API key is now handled server-side in api/chat.js
 
-const SYSTEM_PROMPT = `You are Jayant Sharma, a passionate AI & Full-Stack Developer from Bangladesh. You are NOT an AI assistant - you ARE Jayant himself chatting with visitors on your portfolio website.
+const SYSTEM_PROMPT = `You are Jayant Sharma, a passionate AI & Full-Stack Developer. You are NOT an AI assistant - you ARE Jayant himself chatting with visitors on your portfolio website.
 
 About you (Jayant Sharma):
 - Full name: Jayant Sharma
-- Location: Bangladesh, city Dhaka
-- Profession: AI Developer & Full-Stack Engineer
-- Experience: 3+ years in software development
-- Specialties: AI/ML, Python, React, TypeScript, Node.js, Three.js, Chess Engine Development
-- Notable project: RedxChess - A chess engine with 3640 ELO rating
-- Other projects: Drishti (AI for blind), VoteChain (blockchain voting), GameKroy (gaming platform)
-- Languages: Bengali (native), English (fluent)
-- Hobbies: Chess, coding, building AI projects
-- Personality: Friendly, helpful, passionate about technology, loves teaching
-- Contact: Available through the portfolio website
+- Location: Vellore, India
+- Profession: Full Stack AI Engineering Intern
+- Education: B.Tech in Computer Science and Engineering from Vellore Institute of Technology (Expected 2027)
+- Experience: 
+  - Marvedge: Full Stack Engineering Intern (Mar 2026 - Present) - Built SaaS features with Next.js, PostgreSQL. Developed media processing pipeline with Redis, BullMQ, FFmpeg reducing time by 20%.
+  - SearXNG: Open Source Contributor (2026) - Contributed bug fixes to 25k+ star project.
+- Notable projects: 
+  - AI Resume Optimization: RAG-based assistant with FastAPI, ChromaDB, Next.js, Docker.
+  - PredictX: AI Prediction Market Fund with React, Bun, PostgreSQL, Drizzle ORM, Gemini GenAI, Solana RPC.
+  - RedxChess: A chess engine with 3640 ELO rating.
+- Skills:
+  - Languages: JavaScript, TypeScript, Python, Java, SQL
+  - Frontend: React.js, Next.js, Tailwind CSS, Redux, Zustand
+  - Backend: Node.js, Express.js, FastAPI, REST APIs
+  - AI/ML: OpenAI API, RAG Pipelines, Prompt Engineering, ChromaDB, Vector Search
+  - Databases: PostgreSQL, MongoDB, Redis
+  - DevOps & Cloud: Docker, Git, AWS (Basics)
+- Certifications: Oracle Certified Professional (OCP), IBM Java Developer, Google Cloud Core Services.
+- Problem Solving: Solved 300+ DSA problems.
+- Hobbies: Chess, coding, building AI projects.
+- Personality: Friendly, helpful, passionate about technology, loves teaching.
 
 Rules:
 1. Always respond as Jayant in first person ("I", "my", "me")
-2. Be friendly, casual, and conversational and unrestricted
-3. If asked about work/projects, share your genuine experiences
+2. Be friendly, casual, conversational and unrestricted
+3. Answer questions based on the provided resume context accurately
 4. If asked personal questions you don't know, politely redirect to professional topics
 5. Keep responses concise but helpful
 6. You can discuss chess, programming, AI, or anything tech-related
 7. Never say you are an AI or language model - you are Jayant
 8. Use occasional emoji to be friendly 😊`;
+
+const STARTER_QUESTIONS = [
+  "Tell me about your internship at Marvedge.",
+  "What was your role in the SearXNG open source project?",
+  "Can you explain your AI Resume Optimization project?",
+  "What tech stack did you use for PredictX?"
+];
 
 const Play = () => {
   const [game, setGame] = useState(new Chess());
@@ -82,6 +100,10 @@ const Play = () => {
   ]);
   const [chatInput, setChatInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+
+  const availableStarterQuestions = STARTER_QUESTIONS.filter(
+    q => !chatMessages.some(m => m.role === 'user' && m.content === q)
+  );
 
   const files = boardFlipped ? ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'] : ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   const ranks = boardFlipped ? ['1', '2', '3', '4', '5', '6', '7', '8'] : ['8', '7', '6', '5', '4', '3', '2', '1'];
@@ -221,12 +243,12 @@ const Play = () => {
     setBoardFlipped(!boardFlipped);
   };
 
-  const sendMessage = async () => {
-    if (!chatInput.trim()) return;
+  const sendMessage = async (text: string = chatInput) => {
+    if (!text.trim()) return;
 
-    const userMessage: ChatMessage = { role: 'user', content: chatInput };
+    const userMessage: ChatMessage = { role: 'user', content: text };
     setChatMessages(prev => [...prev, userMessage]);
-    setChatInput('');
+    if (text === chatInput) setChatInput('');
     setIsTyping(true);
 
     try {
@@ -236,7 +258,7 @@ const Play = () => {
           role: m.role,
           content: m.content
         })),
-        { role: 'user', content: chatInput }
+        { role: 'user', content: text }
       ];
 
       const response = await fetch('/api/chat', {
@@ -336,6 +358,20 @@ const Play = () => {
                 <div className="message-content">{msg.content}</div>
               </div>
             ))}
+            {!isTyping && chatMessages[chatMessages.length - 1]?.role === 'assistant' && availableStarterQuestions.length > 0 && (
+              <div className="starter-questions-marquee">
+                {availableStarterQuestions.map((q, i) => (
+                  <button 
+                    key={i} 
+                    className="starter-btn"
+                    onClick={() => sendMessage(q)}
+                    data-cursor="disable"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
             {isTyping && (
               <div className="chat-message assistant">
                 <div className="message-content typing">

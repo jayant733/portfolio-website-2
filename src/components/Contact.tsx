@@ -9,50 +9,52 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
   useEffect(() => {
-    const contactTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".contact-section",
-        start: "top 80%",
-        end: "bottom center",
-        toggleActions: "play none none none",
-      },
+    let ctx = gsap.context(() => {
+      const contactTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".contact-section",
+          start: "top 80%",
+          end: "bottom center",
+          toggleActions: "play none none none",
+        },
+      });
+
+      // Animate title from bottom
+      contactTimeline.fromTo(
+        ".contact-section h3",
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        }
+      );
+
+      // Animate contact boxes with stagger from bottom
+      contactTimeline.fromTo(
+        ".contact-box",
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      );
     });
-
-    // Animate title from bottom
-    contactTimeline.fromTo(
-      ".contact-section h3",
-      {
-        opacity: 0,
-        y: 50,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      }
-    );
-
-    // Animate contact boxes with stagger from bottom
-    contactTimeline.fromTo(
-      ".contact-box",
-      {
-        opacity: 0,
-        y: 50,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power3.out",
-      },
-      "-=0.4"
-    );
 
     // Clean up
     return () => {
-      contactTimeline.kill();
+      ctx.revert();
     };
   }, []);
 

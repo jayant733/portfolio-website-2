@@ -677,6 +677,40 @@ body:has(.play-page) {
   border-bottom-left-radius: 4px;
 }
 
+.starter-questions-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.starter-btn {
+  align-self: flex-start;
+  background: rgba(194, 164, 255, 0.1);
+  border: 1px solid rgba(194, 164, 255, 0.3);
+  color: #c2a4ff;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.4;
+}
+
+.starter-btn:hover {
+  background: rgba(194, 164, 255, 0.2);
+  border-color: #c2a4ff;
+  transform: translateY(-1px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .message-content.typing {
   display: flex;
   gap: 4px;
