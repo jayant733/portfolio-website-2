@@ -390,7 +390,7 @@ const Play = () => {
               onKeyPress={handleKeyPress}
               data-cursor="disable"
             />
-            <button className="chat-send-btn" onClick={sendMessage} data-cursor="disable">
+            <button className="chat-send-btn" onClick={() => sendMessage()} data-cursor="disable">
               ➤
             </button>
           </div>
